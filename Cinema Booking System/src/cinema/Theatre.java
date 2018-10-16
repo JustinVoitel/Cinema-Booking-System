@@ -22,7 +22,7 @@ public class Theatre {
 	}
 	
 	public void addShow(String name) {
-		this.shows.add(new Show(name, this));
+		this.shows.add(new Show(name, this, 14.5));
 	}
 	
 	public void addRows(int number) {
