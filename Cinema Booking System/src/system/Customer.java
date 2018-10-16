@@ -3,8 +3,6 @@ package system;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cinema.Show;
-
 public class Customer {
 	private String name;
 	private String phone;
@@ -45,20 +43,15 @@ public class Customer {
 		return this.id;
 	}
 	
-	public void addBooking(Show show, ArrayList<String> seats) {
-		
+	public void addBooking(Booking booking) {
+		this.bookings.add(booking);
 	}
 	
-	public void deleteBooking(String bookingId) {
-		
+	public void deleteBooking(int bookingIndex) {
+		this.bookings.remove(bookingIndex);
 	}
 	
-	public ArrayList<Booking> getBookings(ArrayList<Booking> bookings) {
+	public ArrayList<Booking> getBookings() {
 		return this.bookings;
 	}
-	
-	public Booking getBooking(String id) {
-		return null;
-	}
-	
 }

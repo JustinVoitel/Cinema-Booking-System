@@ -6,14 +6,15 @@ import java.util.ArrayList;
 public class Show {
 	private String name;
 	private Theatre theatre;
-	private int price;
+	private double price;
 	private ArrayList<Row> rows;
 	private LocalDateTime date;
 	
-	public Show(String name, Theatre theatre) {
+	public Show(String name, Theatre theatre, double price) {
 		super();
 		this.name=name;
 		this.theatre=theatre;
+		this.price=price;
 		this.rows = this.theatre.getRowSchema();
 		date = LocalDateTime.of(2018, Month.OCTOBER, 11, 20, 15);
 	}
@@ -24,6 +25,10 @@ public class Show {
 	
 	public LocalDateTime getDate() {
 		return this.date;
+	}
+	
+	public double getPrice() {
+		return this.price;
 	}
 	
 	public Theatre getTheatre() {

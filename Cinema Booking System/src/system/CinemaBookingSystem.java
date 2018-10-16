@@ -16,29 +16,67 @@ public class CinemaBookingSystem {
 	private static Cinema cinema = new Cinema("CineStar",5);
 	//formatter for date
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MM-dd");
-	private static int state;
+	private static String state;
 	private static boolean active =true;
 	public static void main(String[] args) {
 		Scanner stateSelect = new Scanner(System.in);
 		Scanner showSelect = new Scanner(System.in);
+		Scanner bookingSelect = new Scanner(System.in);
 		//check if user is logged in
 		if(user.isLogged()) {
 			//print helper at the beginning
 			printHelp();
 			do {
 				//change state if number is written in input
-				state = stateSelect.nextInt();
-				if(state==0) {
+				
+				state = stateSelect.nextLine();
+				
+				if(state.equals("0")) {
 					printHelp();
 				}
-				if(state==1) {
+				if(state.equals("1")) {
 					printAllShows();
-					String showName = showSelect.nextLine();
-					printShow(cinema.getShow(showName));
+					Show show;
+					do {
+						String showName = showSelect.nextLine();
+						show = cinema.getShow(showName);
+						if(show==null) {
+							System.out.println("No show found with this name! try again..");
+						}
+					}while(show==null);
+					printShow(show);
+					
+				}
+				if(state.equals("2")) {
+					printBookings();
+					if(user.getBookings().size()<1) {
+						System.out.println("No Bookings yet!");
+					}else {
+						int bookingIndex = bookingSelect.nextInt();
+						user.deleteBooking(bookingIndex);
+						System.out.println("Deleting successful!");
+						printHelp();
+					}
+					
+				}
+				if(state.equals("3")) {
+					active=false;
 				}
 			}while(active);
 		}else {
 			System.out.println("Please Log In!");
+		}
+	}
+	
+	public static void printBookings() {
+		System.out.println("------------");
+		System.out.println("--BOOKINGS--");
+		System.out.println("------------");
+		int i=0;
+		for(Booking booking:user.getBookings()) {
+			System.out.println("Show: "+booking.getShow().getName()+" -> "+booking.getShow().getDate()+" -> "+booking.getTotal()+"€");
+			System.out.println("Enter "+i+": to cancel the seat(s): "+booking.getSeats().toString()+"\n");
+			i++;
 		}
 	}
 	
@@ -48,8 +86,9 @@ public class CinemaBookingSystem {
 		System.out.println("------------");
 		System.out.println("Name: "+ show.getName());
 		System.out.println("Date: "+ show.getDate().format(formatter));
+		System.out.println("Price: "+ show.getPrice()+"€");
 		System.out.println("Theatre: "+ show.getTheatre().getName());
-		System.out.println("Seats:");
+		System.out.println("Seats: + for free, - for taken");
 		printSeats(show);
 		selectSeats(show);
 	}
@@ -77,12 +116,11 @@ public class CinemaBookingSystem {
 					seats.add(seatNumber);
 				}
 			}
-			System.out.println("Continue Booking? Enter yes if so, or anything else to continue with checkout!");
+			System.out.println("Continue Booking? Enter YES if so, or NO to continue with checkout!");
 			String quit = quitSelect.nextLine();
 			if(!quit.toLowerCase().trim().equals("yes")) {
-				bookingActive = false;
+				bookingActive=false;
 			}
-			
 		}while(bookingActive);
 		checkout(show, seats, user);
 	}
@@ -95,18 +133,19 @@ public class CinemaBookingSystem {
 		
 		System.out.println("Name: "+ show.getName());
 		System.out.println("Date: "+ show.getDate().format(formatter));
+		System.out.println("Date: "+ show.getPrice()*seats.size()+"€");
 		System.out.println("Theatre: "+ show.getTheatre().getName());
 		System.out.println("Seats:");
 		for(String seat: seats) {
 			System.out.println(seat);
 		}
 		System.out.println("Enter YES to pay with paypal, or anything else to quit!");
-		String payment = paymentSelect.nextLine();
-		if(!payment.equals("YES")) {
-			active=false;
+		String payment = paymentSelect.nextLine().toLowerCase().trim();
+		if(!payment.equals("yes")) {
+			printHelp();
 		}else {
 			new Booking(show, seats, user);
-			state=0;
+			printHelp();
 		}
 	}
 	
@@ -131,7 +170,7 @@ public class CinemaBookingSystem {
 			rowNum++;
 		}
 		
-		System.out.println("\n________________SCREEN________________");
+		System.out.println("________________SCREEN________________");
 	}
 	
 	public static void printAllShows() {
@@ -145,11 +184,14 @@ public class CinemaBookingSystem {
 		
 	}
 	
+	
 	public static void printHelp() {
 		System.out.println("-------------------------");
 		System.out.println("Welcome, "+user.getName()+ " to the Cinema Booking System!");
+		System.out.println("Enter 0: to access the help menu!");
 		System.out.println("Enter 1: to Book a Show!");
-		System.out.println("Enter 2: to quit");
+		System.out.println("Enter 2: see/cancel your Bookings! ");
+		System.out.println("Enter 3: to quit");
 		System.out.println("-------------------------");
 		System.out.println("Enter Option:");
 	}
