@@ -19,10 +19,29 @@ public class Customer {
 		this.phone=phone;
 	}
 	
-	public Boolean isLogged() {
+	/**
+	 * adds a booking to this user
+	 * @param booking
+	 */
+	public void addBooking(Booking booking) {
+		this.bookings.add(booking);
+	}
+	
+	/**
+	 * deletes a specific booking from the bookings ArrayList
+	 * @param bookingIndex
+	 */
+	public void deleteBooking(int bookingIndex) {
+		this.bookings.remove(bookingIndex);
+	}
+	
+	/**
+	 * GETTERS & SETTERS
+	 */
+	public Boolean getLogged() {
 		return this.isLogged;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -41,14 +60,6 @@ public class Customer {
 	
 	public int getId() {
 		return this.id;
-	}
-	
-	public void addBooking(Booking booking) {
-		this.bookings.add(booking);
-	}
-	
-	public void deleteBooking(int bookingIndex) {
-		this.bookings.remove(bookingIndex);
 	}
 	
 	public ArrayList<Booking> getBookings() {

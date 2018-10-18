@@ -16,12 +16,18 @@ public class Cinema {
 		this.createTheatres();
 	}
 	
+	/**
+	 * creates a cinema
+	 */
 	public void createTheatres() {
 		for(int i=0;i<this.theatreNum;i++) {
 			this.theatres.add(new Theatre("Theatre "+i,this.movies.get(i),5));
 		}
 	}
 	
+	/**
+	 * adds a list of movies to the cinema
+	 */
 	public void addMovies() {
 		this.movies.add("Venom");
 		this.movies.add("Jonny English");
@@ -30,6 +36,9 @@ public class Cinema {
 		this.movies.add("Die Unglaublichen 2");
 	}
 	
+	/**
+	 * GETTERS AND SETTERS
+	 */
 	public String getName() {
 		return this.name;
 	}

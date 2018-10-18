@@ -19,6 +19,37 @@ public class Show {
 		date = LocalDateTime.of(2018, Month.OCTOBER, 11, 20, 15);
 	}
 	
+	/**
+	 * checking if the seat is free or taken
+	 * @param row
+	 * @param column
+	 * @return boolean that signals if the seat is free(true) or taken(false)
+	 */
+	public boolean checkValidSeat(int row,int column) {
+		return this.rows.get(row).checkValidSeat(column);	 
+	}
+	
+	/**
+	 * booking the seats in the seats ArrayList
+	 * @param seats
+	 * @return boolean that signals if the booking was successful
+	 */
+	public boolean bookSeats(ArrayList<String> seats) {
+		for(String seat:seats) {
+			String[] seatNumbers = seat.split("/");
+			int row = Integer.parseInt(seatNumbers[0]);
+			int column = Integer.parseInt(seatNumbers[1]);
+			boolean valid = this.rows.get(row).bookSeat(column);
+			if(!valid) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * GETTERS & SETTERS
+	 */
 	public String getName() {
 		return this.name;
 	}
@@ -37,26 +68,5 @@ public class Show {
 	
 	public ArrayList<Row> getRows(){
 		return this.rows;
-	}
-	
-	public boolean checkValidSeat(int row,int column) {
-		return this.rows.get(row).checkValidSeat(column);	 
-	}
-	
-	public boolean bookSeats(ArrayList<String> seats) {
-		for(String seat:seats) {
-			String[] seatNumbers = seat.split("/");
-			int row = Integer.parseInt(seatNumbers[0]);
-			int column = Integer.parseInt(seatNumbers[1]);
-			boolean valid = this.bookSeat(row,column);
-			if(!valid) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean bookSeat(int row,int column) {
-		return this.rows.get(row).bookSeat(column);
 	}
 }

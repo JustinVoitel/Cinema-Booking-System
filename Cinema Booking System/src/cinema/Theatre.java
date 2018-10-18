@@ -17,18 +17,25 @@ public class Theatre {
 		
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-	
+	/**
+	 * adds a show to the theatre
+	 * @param name
+	 */
 	public void addShow(String name) {
 		this.shows.add(new Show(name, this, 14.5));
-	}
+	}	
 	
 	public void addRows(int number) {
 		for(int i=0;i<number;i++) {
 			this.rowSchema.add(new Row(i,5));
 		}
+	}
+	
+	/**
+	 * GETTERS & SETTERS
+	 */
+	public String getName() {
+		return this.name;
 	}
 	
 	public ArrayList<Show> getShows() {

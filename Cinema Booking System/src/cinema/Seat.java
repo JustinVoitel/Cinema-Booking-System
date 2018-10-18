@@ -10,10 +10,10 @@ public class Seat {
 		this.isReserved=isReserved;
 	}
 	
-	public int getSeat() {
-		return this.seatNum;
-	}
-	
+	/**
+	 * sets the seat to the status reserved
+	 * @return
+	 */
 	public boolean setReserved() {
 		if(this.isReserved.equals(false)) {
 			this.isReserved=true;
@@ -22,9 +22,17 @@ public class Seat {
 		return false;
 	}
 	
+	/**
+	 * checks if the seat is already taken 
+	 */
 	public Boolean isReserved() {
 		return this.isReserved;
 	}
 	
-	
+	/**
+	 * GETTER
+	 */
+	public int getSeat() {
+		return this.seatNum;
+	}
 }

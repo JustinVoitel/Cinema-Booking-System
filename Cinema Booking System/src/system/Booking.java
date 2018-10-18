@@ -7,13 +7,14 @@ import cinema.Show;
 
 public class Booking {
 	private int id;
-	private boolean isBooked = false;
+	private boolean isBooked;
 	private double total;
 	private Customer user;
 	private Show show;
 	private ArrayList<String> seats;
 	public Booking(Show show, ArrayList<String> seats, Customer user) {
 		super();
+		this.isBooked=false;
 		Random rng = new Random();
 		this.id = rng.nextInt(999);
 		this.user = user;
@@ -23,6 +24,10 @@ public class Booking {
 		this.bookSeats();
 	}
 	
+	/**
+	 * books the existing seats in the seats ArrayList
+	 * 
+	 */
 	public void bookSeats() {
 		//check if booking information is received
 		if(seats.isEmpty() || user.equals(null) || show.equals(null)) {
@@ -34,14 +39,23 @@ public class Booking {
 				this.user.addBooking(this);
 				this.isBooked=true;
 				System.out.println("Booking successful!");
+			}else {
+				System.out.println("booking failed!");
 			}
 		}
 	}
 	
+	/**
+	 * calculates the total price for this booking, 
+	 * where it multiplies the number of seats with the price of the show
+	 */
 	public void calcTotal() {
 		this.total = this.show.getPrice()*this.seats.size();
 	}
 	
+	/**
+	 * GETTERS & SETTERS
+	 */
 	public double getTotal() {
 		return this.total;
 	}

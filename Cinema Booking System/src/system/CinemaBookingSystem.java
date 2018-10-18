@@ -23,7 +23,7 @@ public class CinemaBookingSystem {
 		Scanner showSelect = new Scanner(System.in);
 		Scanner bookingSelect = new Scanner(System.in);
 		//check if user is logged in
-		if(user.isLogged()) {
+		if(user.getLogged()) {
 			//print helper at the beginning
 			printHelp();
 			do {
@@ -68,6 +68,9 @@ public class CinemaBookingSystem {
 		}
 	}
 	
+	/**
+	 * prints all existing bookings that a user has
+	 */
 	public static void printBookings() {
 		System.out.println("------------");
 		System.out.println("--BOOKINGS--");
@@ -80,6 +83,10 @@ public class CinemaBookingSystem {
 		}
 	}
 	
+	/**
+	 * prints a specific show
+	 * @param show
+	 */
 	public static void printShow(Show show) {
 		System.out.println("------------");
 		System.out.println("Show Details");
@@ -93,6 +100,11 @@ public class CinemaBookingSystem {
 		selectSeats(show);
 	}
 	
+	/**
+	 * looping the seat selection as long as the user writes 
+	 * a specific string into the input
+	 * @param show
+	 */
 	public static void selectSeats(Show show) {
 		ArrayList <String> seats = new ArrayList<>();
 		Scanner rowSelect = new Scanner(System.in);
@@ -125,6 +137,14 @@ public class CinemaBookingSystem {
 		checkout(show, seats, user);
 	}
 	
+	/**
+	 * the user can check the details of the show and
+	 * pay if everything is alright by writing yes into the input,
+	 * if no then it will cancel the booking
+	 * @param show 
+	 * @param seats
+	 * @param user
+	 */
 	public static void checkout(Show show, ArrayList<String> seats, Customer user) {
 		Scanner paymentSelect = new Scanner(System.in);
 		System.out.println("-------------------------");
@@ -149,6 +169,10 @@ public class CinemaBookingSystem {
 		}
 	}
 	
+	/**
+	 * prints a table of seats for a specific show 
+	 * @param show
+	 */
 	public static void printSeats(Show show) {
 		int rowSize=show.getRows().size();
 		int rowNum = 0;
@@ -173,6 +197,9 @@ public class CinemaBookingSystem {
 		System.out.println("________________SCREEN________________");
 	}
 	
+	/**
+	 * prints all shows for a specific cinema
+	 */
 	public static void printAllShows() {
 		System.out.println("-------------------------");
 		System.out.println("Option 1: Show Booking...");
@@ -184,7 +211,9 @@ public class CinemaBookingSystem {
 		
 	}
 	
-	
+	/**
+	 * prints the helping info for the user
+	 */
 	public static void printHelp() {
 		System.out.println("-------------------------");
 		System.out.println("Welcome, "+user.getName()+ " to the Cinema Booking System!");
